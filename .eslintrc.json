@@ -1,0 +1,17 @@
+{
+    "parser": "babel-eslint",
+    "extends": ["eslint:recommended",
+        "plugin:react/recommended"],
+    "rules": {
+        "no-console": "off"
+    },
+    "env": {
+        "browser": true,
+        "es6": true,
+        "jest/globals": true,
+        "cypress/globals": true
+    },
+    "plugins": [
+        "react", "jest", "cypress"
+    ]
+  }
