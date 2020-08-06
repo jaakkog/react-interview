@@ -4,39 +4,25 @@ import '../App.css';
 import PropTypes from 'prop-types';
 
 const Hello = ({ name, id, complete, onClick, onRemoveClick }) => {
-  let variant;
-  let text;
-  let color;
-  let decoration;
-
-  if (complete === true) {
-    variant = 'secondary';
-    text = 'Complete';
-    color = 'lightgreen';
-    decoration = 'line-through';
-  } else {
-    variant = 'primary';
-    text = 'Incomplete';
-    color = 'white';
-  }
-
 
   return (
     <div>
       <ListGroup
         className="btn todo"
       >
-        <ListGroup.Item style={{ backgroundColor: color, textDecoration: decoration }}>
+        <ListGroup.Item style={{ 
+          backgroundColor: complete ? 'lightgreen' : 'white', 
+          textDecoration:  complete ? 'line-through': 'none'}}>
           {name}
         </ListGroup.Item>
         <ListGroup.Item>
           <Button
             className="completeButton"
-            variant={variant}
+            variant={complete ? 'secondary': 'primary'}
             id={id}
             onClick={() => onClick(id)}
           >
-            {text}
+            {complete ? 'Complete' : 'Incomplete'}
           </Button>
           <Button
             variant="danger"
