@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import '../App.css';
 
 const Bar = ({ onSubmit, newTodoName, onInputChange }) => (
   <Form

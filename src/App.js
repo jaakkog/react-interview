@@ -15,29 +15,25 @@ const App = () => {
   const [todo, setToDo] = useState(todos);
   const [newTodoName, setNewTodoName] = useState('');
 
-  const generateNewId = () => Math.floor(Math.random() * 1000);
-
   const onSubmit = (event) => {
     event.preventDefault();
-    const newTodos = [...todo];
-    newTodos.push({
-      id: generateNewId(),
+    const newTodo = {
+      id: Math.floor(Math.random() * 1000),
       name: newTodoName,
       complete: false,
-    });
-    setToDo(newTodos);
+    }
+    setToDo([...todo, newTodo]);
     setNewTodoName('');
   };
-
+  
   const onClick = (id) => {
-    const todoItems = [...todo];
-    for (let i = 0; i < todo.length; i++) {
-      if (todoItems[i].id === id) {
-        const newComplete = !todoItems[i].complete;
-        todoItems[i].complete = newComplete;
+    const clickedTask = todo.map(task => {
+      if(task.id === id) {
+        return {...task, complete: !task.complete}
       }
-    }
-    setToDo(todoItems);
+      return task
+    })
+    setToDo(clickedTask);
   };
 
   const onChange = (event) => {
@@ -45,33 +41,24 @@ const App = () => {
   };
 
   const onRemoveClick = (id) => {
-    const todoItems = [...todo];
-    const deleteItem = todoItems.indexOf(todoItems.find((x) => x.id === id));
-    todoItems.splice(deleteItem, 1);
-    setToDo(todoItems);
+    const todosLeft = todo.filter(task => id !== task.id)
+    setToDo(todosLeft);
   };
 
-  const todoItems = () => {
-    const retVal = [];
-
-    for (let i = 0; i < todo.length; i++) {
-      const todos = todo[i];
-      retVal.push(
-        <Hello
-          key={todos.id}
-          todo={todos}
-          onClick={onClick}
-          onRemoveClick={onRemoveClick}
-        />,
-      );
-    }
-    return retVal;
-  };
+  const todoItems = todo.map(task => 
+      <Hello 
+        onClick={onClick} 
+        onRemoveClick={onRemoveClick} 
+        key={task.id} 
+        id={task.id} 
+        name={task.name} 
+        complete={task.complete}
+      />)
 
   return (
     <div className="container" style={{ backgroundColor: '#B5E2FA' }}>
       <h1>ToDo App</h1>
-      {todoItems()}
+      {todoItems}
       <Bar
         onSubmit={onSubmit}
         newTodoName={newTodoName}

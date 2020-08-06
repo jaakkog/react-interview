@@ -1,14 +1,15 @@
 import React from 'react';
 import { Button, ListGroup } from 'react-bootstrap';
+import '../App.css';
 import PropTypes from 'prop-types';
 
-const Hello = ({ todo, onClick, onRemoveClick }) => {
+const Hello = ({ name, id, complete, onClick, onRemoveClick }) => {
   let variant;
   let text;
   let color;
   let decoration;
 
-  if (todo.complete === true) {
+  if (complete === true) {
     variant = 'secondary';
     text = 'Complete';
     color = 'lightgreen';
@@ -19,26 +20,27 @@ const Hello = ({ todo, onClick, onRemoveClick }) => {
     color = 'white';
   }
 
+
   return (
     <div>
       <ListGroup
         className="btn todo"
       >
         <ListGroup.Item style={{ backgroundColor: color, textDecoration: decoration }}>
-          {todo.name}
+          {name}
         </ListGroup.Item>
         <ListGroup.Item>
           <Button
             className="completeButton"
             variant={variant}
-            id={todo.id}
-            onClick={() => onClick(todo.id)}
+            id={id}
+            onClick={() => onClick(id)}
           >
             {text}
           </Button>
           <Button
             variant="danger"
-            onClick={() => onRemoveClick(todo.id)}
+            onClick={() => onRemoveClick(id)}
           >
             Remove from list
           </Button>
@@ -49,7 +51,9 @@ const Hello = ({ todo, onClick, onRemoveClick }) => {
 };
 
 Hello.propTypes = {
-    todo: PropTypes.any.isRequired,
+    name: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    complete: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
     onRemoveClick: PropTypes.func.isRequired
 }
